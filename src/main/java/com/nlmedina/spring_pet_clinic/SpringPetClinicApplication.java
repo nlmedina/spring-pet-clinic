@@ -16,17 +16,22 @@ import static org.springframework.web.servlet.function.ServerResponse.ok;
 public class SpringPetClinicApplication {
 
 	public static void main(String[] args) {
-        SpringApplication.run(SpringPetClinicApplication.class, args);
-    }
+		SpringApplication.run(SpringPetClinicApplication.class, args);
+	}
 
-    @Bean
-    RouterFunction <ServerResponse> routes(CustomerRepository repository) {
-        return route()
-                .GET("/customers", _ -> ok().body(repository.findAll()))
-                .GET("/hello", _ -> ok().body(Map.of("message", "Hello World!")))
-                .build();
-    }
+	@Bean
+	RouterFunction<ServerResponse> routes(CustomerRepository repository) {
+		return route()//
+			.GET("/customers", _ -> ok().body(repository.findAll()))//
+			.GET("/hello", _ -> ok().body(Map.of("message", "Hello World!")))//
+			.build();
+	}
+
 }
 
-record Customer (int id, String name) {}
-interface CustomerRepository extends ListCrudRepository<Customer, Integer> {}
+record Customer(int id, String name) {
+}
+
+interface CustomerRepository extends ListCrudRepository<Customer, Integer> {
+
+}
